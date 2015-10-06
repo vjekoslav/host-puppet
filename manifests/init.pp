@@ -22,7 +22,9 @@ ohmyzsh::plugins{ 'vjeko':
 include git
 git::config { 'user.name':
   value => 'Vjekoslav Nikolic',
+  user => 'vjeko',
 }
 git::config { 'user.email':
   value => 'vjeko.nikolic@gmail.com',
+  user => 'vjeko',
 }
