@@ -1,19 +1,31 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    camptocamp-archive (0.8.1)
+    garethr-docker (4.1.1)
+      puppetlabs-apt (<= 3.0.0, >= 1.1.0)
+      puppetlabs-stdlib (>= 4.1.0)
+      stahnma-epel (>= 0.0.6)
     maestrodev-wget (1.7.1)
     puppetlabs-apt (2.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
     puppetlabs-git (0.4.0)
       puppetlabs-stdlib (>= 3.2.0)
     puppetlabs-stdlib (4.9.0)
+    stahnma-epel (1.1.1)
+    stankevich-python (1.9.8)
+      puppetlabs-stdlib (< 6.0.0, >= 4.6.0)
+      stahnma-epel (< 2.0.0, >= 1.0.1)
     zanloy-ohmyzsh (1.0.3)
       maestrodev-wget (>= 1.5.7)
       puppetlabs-stdlib (>= 3.2.0)
 
 DEPENDENCIES
+  camptocamp-archive (= 0.8.1)
+  garethr-docker (= 4.1.1)
   puppetlabs-apt (= 2.2.0)
   puppetlabs-git (= 0.4.0)
   puppetlabs-stdlib (>= 0)
+  stankevich-python (= 1.9.8)
   zanloy-ohmyzsh (= 1.0.3)
 
