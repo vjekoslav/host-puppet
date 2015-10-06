@@ -1,14 +1,18 @@
-# execute 'apt-get update'
 $user = 'vjeko'
 
-exec { 'apt-update':
-    command => '/usr/bin/apt-get update'
+apt::ppa { 'ppa:webupd8team/sublime-text-3': }
+apt::ppa { 'ppa:webupd8team/java': }
+class { 'apt':
+  update => {
+    frequency => 'always',
+  },
 }
 
 package{ 'tmux': }
 package{ 'htop': }
 package{ 'wget': }
 package{ 'curl': }
+package{ 'sublime-text-installer': }
 
 ohmyzsh::install{ 'vjeko':
     set_sh => true,
@@ -34,5 +38,3 @@ git::config { 'push.default':
   value => 'simple',
   user => 'vjeko',
 }
-
-

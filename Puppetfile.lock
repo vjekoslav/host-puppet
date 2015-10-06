@@ -2,6 +2,8 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     maestrodev-wget (1.7.1)
+    puppetlabs-apt (2.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
     puppetlabs-git (0.4.0)
       puppetlabs-stdlib (>= 3.2.0)
     puppetlabs-stdlib (4.9.0)
@@ -10,6 +12,7 @@ FORGE
       puppetlabs-stdlib (>= 3.2.0)
 
 DEPENDENCIES
+  puppetlabs-apt (= 2.2.0)
   puppetlabs-git (= 0.4.0)
   puppetlabs-stdlib (>= 0)
   zanloy-ohmyzsh (= 1.0.3)

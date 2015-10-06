@@ -11,3 +11,4 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'puppetlabs-stdlib'
 mod 'zanloy/ohmyzsh', '1.0.3'
 mod 'puppetlabs/git', '0.4.0'
+mod 'puppetlabs/apt', '2.2.0'
