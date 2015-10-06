@@ -8,6 +8,7 @@ class { 'apt':
   },
 }
 
+package{ 'default-jdk': }
 package{ 'tmux': }
 package{ 'htop': }
 package{ 'wget': }
