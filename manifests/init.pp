@@ -1,4 +1,6 @@
 # execute 'apt-get update'
+$user = 'vjeko'
+
 exec { 'apt-update':
     command => '/usr/bin/apt-get update'
 }
@@ -28,3 +30,9 @@ git::config { 'user.email':
   value => 'vjeko.nikolic@gmail.com',
   user => 'vjeko',
 }
+git::config { 'push.default':
+  value => 'simple',
+  user => 'vjeko',
+}
+
+
