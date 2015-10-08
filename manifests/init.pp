@@ -41,7 +41,7 @@ archive { 'ideaIU-15-preview':
     url    => 'https://download.jetbrains.com/idea/ideaIU-15-PublicPreview.tar.gz',
     target => '/opt',
     follow_redirects => true,
-    checksum => '7c53817e966f162b2062c90c8159242a',
+    digest_string => '7c53817e966f162b2062c90c8159242a',
     src_target => '/tmp'
 }
 
@@ -52,13 +52,13 @@ python::pip { 'docker-compose' :
     require => Package['python-pip']
 }
 
-ohmyzsh::install{ 'vjeko':
+ohmyzsh::install{ $user:
     set_sh => true,
 }
-ohmyzsh::theme{ 'vjeko':
+ohmyzsh::theme{ $user:
     theme => 'agnoster'
 }
-ohmyzsh::plugins{ 'vjeko': 
+ohmyzsh::plugins{ $user: 
     plugins => 'git github tmux' 
 }
 
@@ -66,13 +66,13 @@ ohmyzsh::plugins{ 'vjeko':
 include git
 git::config { 'user.name':
     value => 'Vjekoslav Nikolic',
-    user => 'vjeko',
+    user => $user,
 }
 git::config { 'user.email':
     value => 'vjeko.nikolic@gmail.com',
-    user => 'vjeko',
+    user => $user,
 }
 git::config { 'push.default':
     value => 'simple',
-    user => 'vjeko',
+    user => $user,
 }
