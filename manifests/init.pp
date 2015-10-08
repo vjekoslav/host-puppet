@@ -23,6 +23,7 @@ package{ 'default-jdk':
     require => Apt::Ppa['ppa:webupd8team/java']
 }
 package{ 'tmux': }
+package{ 'dnsutils': }
 package{ 'htop': }
 package{ 'wget': }
 package{ 'curl': }
