@@ -6,7 +6,7 @@ fi
 
 echo "Installing puppet agent and gem for librarian-puppet"
 # enable repo for 14.04
-wget –quiet https://apt.puppetlabs.com/puppetlabs-release-trusty.deb -P /tmp/
+wget -quiet https://apt.puppetlabs.com/puppetlabs-release-trusty.deb -P /tmp/
 
 dpkg -i /tmp/puppetlabs-release-trusty.deb
 apt-get -qq update
@@ -17,7 +17,7 @@ echo "Installing librarian puppet and installing puppet dependencies"
 # install gem and librarian-puppet
 gem install librarian-puppet
 
-# install dependecies and apply manifest
+# install dependecies 
 librarian-puppet install
 
 echo "Applying manifests"

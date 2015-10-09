@@ -3,7 +3,7 @@ $user = 'vjeko'
 apt::ppa { 'ppa:webupd8team/sublime-text-3': }
 apt::ppa { 'ppa:webupd8team/java': }
 
-apt::source { 'docker':
+apt::source { 'docker-stable':
     location => 'https://apt.dockerproject.org/repo',
     release => 'ubuntu-trusty',
     repos => 'main',
