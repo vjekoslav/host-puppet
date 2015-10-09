@@ -12,7 +12,10 @@ apt-get update
 # install puppet
 apt-get install puppet
 
-# install gem
+# install gem and librarian-puppet
 apt-get install rubygems-integration
-
 gem install librarian-puppet
+
+# install dependecies and apply manifest
+librarian-puppet install
+puppet apply manifests/init.pp --modulepath=modules
