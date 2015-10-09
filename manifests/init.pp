@@ -36,14 +36,14 @@ package{ 'docker-engine':
     require => Apt::Source['docker']
 }
 
-archive { 'ideaIU-15-preview':
-    ensure => present,
-    url    => 'https://download.jetbrains.com/idea/ideaIU-15-PublicPreview.tar.gz',
-    target => '/opt',
-    follow_redirects => true,
-    digest_string => '7c53817e966f162b2062c90c8159242a',
-    src_target => '/tmp'
-}
+# archive { 'ideaIU-15-preview':
+#     ensure => present,
+#     url    => 'https://download.jetbrains.com/idea/ideaIU-15-PublicPreview.tar.gz',
+#     target => '/opt',
+#     follow_redirects => true,
+#     digest_string => '7c53817e966f162b2062c90c8159242a',
+#     src_target => '/tmp'
+# }
 
 python::pip { 'docker-compose' :
     pkgname       => 'docker-compose',
@@ -76,3 +76,12 @@ git::config { 'push.default':
     value => 'simple',
     user => $user,
 }
+
+# class { 'docker':
+#     # Setup docker containers to have chaing of DNS
+#     dns => ["<%= scope.lookupvar('::ipaddress_docker_0') -%>", '8.8.8.8'],
+#     dns_search => 'docker',
+#     docker_users => [ $user ],
+#     require => Package['docker-engine'],
+
+# }
