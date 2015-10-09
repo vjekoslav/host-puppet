@@ -16,12 +16,13 @@ apt::source { 'docker':
 class { 'apt':
     update => {
         frequency => 'always',
-    },
-}
+    }
+} -> Package <| |>
 
 package{ 'default-jdk':
     require => Apt::Ppa['ppa:webupd8team/java']
 }
+
 package{ 'tmux': }
 package{ 'dnsutils': }
 package{ 'htop': }
