@@ -80,17 +80,48 @@ docker::image { 'sameersbn/apt-cacher-ng': }
 docker::image { 'graylog2/allinone': }
 
 docker::run { 'dns':
-  image => 'phensley/docker-dns',
-  restart => 'always',
-  use_name => true,
-  ports => ['172.17.42.1:53:53/udp'],
-  volumes => ['/var/run/docker.sock:/docker.sock'],
-  extra_parameters => [
-    '--log-opt max-size=5k',
-    '--log-opt max-file=10',
-    '--name=dns',
-  ],
-  command => "--domain docker --resolver ${::ipaddress_eth0} 8.8.8.8",
-  require => Docker::Image['phensley/docker-dns'],
-  manage_service => false,
+    image => 'phensley/docker-dns',
+    restart => 'always',
+    use_name => true,
+    ports => ['172.17.42.1:53:53/udp'],
+    volumes => ['/var/run/docker.sock:/docker.sock'],
+    extra_parameters => [
+        '--log-driver=gelf',
+        '--log-opt gelf-address=udp://172.17.42.1:12201',
+        '--name=dns',
+    ],
+    command => "--domain docker --resolver ${::ipaddress_eth0} 8.8.8.8",
+    require => Docker::Image['phensley/docker-dns'],
+    manage_service => false,
+}
+
+docker::run { 'apt-cacher':
+    image => 'sameersbn/apt-cacher-ng',
+    restart => 'always',
+    use_name => true,
+    expose => ['3142'],
+    volumes => ['/srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng'],
+    extra_parameters => [
+        '--log-driver=gelf',
+        '--log-opt gelf-address=udp://172.17.42.1:12201',
+        '--name=apt-cacher',
+    ],
+    require => Docker::Image['sameersbn/apt-cacher-ng'],
+    manage_service => false,
+}
+
+#docker run --log-driver=gelf --log-opt gelf-address=udp://<GraylogIP>:12201 busybox echo Hello Graylog
+docker::run { 'graylog2':
+    image => 'graylog2/allinone',
+    restart => 'always',
+    use_name => true,
+    ports => ['9000:9000', '172.17.42.1:12201:12201/udp'],
+    volumes => ['/srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng'],
+    extra_parameters => [
+        '-t',
+        '--name=graylog2',
+    ],
+    #env => [ 'GRAYLOG_PASSWORD=Secunia1' ],
+    require => Docker::Image['graylog2/allinone'],
+    manage_service => false,
 }
