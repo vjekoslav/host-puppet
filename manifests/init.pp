@@ -10,7 +10,7 @@ class { 'apt':
 } -> Package <| |>
 
 package{ 'default-jdk':
-    require => Apt::Ppa['ppa:webupd8team/java']
+    require => Class['apt']
 }
 
 package{ 'tmux': }
@@ -21,7 +21,7 @@ package{ 'curl': }
 package{ 'aptitude': }
 package{ 'python-pip': }
 package{ 'sublime-text-installer':
-    require => Apt::Ppa['ppa:webupd8team/sublime-text-3']
+    require => Class['apt']
 }
 
 # archive { 'ideaIU-15-preview':
@@ -70,4 +70,27 @@ class { 'docker':
     dns => [ '172.17.42.1', '8.8.8.8' ],
     dns_search => 'docker',
     docker_users => [ $user ],
+}
+
+# TODO: networkmanager /etc/NetworkManager/dnsmasq.d/10-docker interface=eth0 server=/docker/172.17.42.1#53
+
+# fetch images
+docker::image { 'phensley/docker-dns': }
+docker::image { 'sameersbn/apt-cacher-ng': }
+docker::image { 'graylog2/allinone': }
+
+docker::run { 'dns':
+  image => 'phensley/docker-dns',
+  restart => 'always',
+  use_name => true,
+  ports => ['172.17.42.1:53:53/udp'],
+  volumes => ['/var/run/docker.sock:/docker.sock'],
+  extra_parameters => [
+    '--log-opt max-size=5k',
+    '--log-opt max-file=10',
+    '--name=dns',
+  ],
+  command => "--domain docker --resolver ${::ipaddress_eth0} 8.8.8.8",
+  require => Docker::Image['phensley/docker-dns'],
+  manage_service => false,
 }
