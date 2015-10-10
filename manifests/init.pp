@@ -3,16 +3,6 @@ $user = 'vjeko'
 apt::ppa { 'ppa:webupd8team/sublime-text-3': }
 apt::ppa { 'ppa:webupd8team/java': }
 
-apt::source { 'docker-stable':
-    location => 'https://apt.dockerproject.org/repo',
-    release => 'ubuntu-trusty',
-    repos => 'main',
-    key => {
-        id => '58118E89F3A912897C070ADBF76221572C52609D',
-        server => 'hkp://p80.pool.sks-keyservers.net:80',
-    },
-}
-
 class { 'apt':
     update => {
         frequency => 'always',
@@ -32,9 +22,6 @@ package{ 'aptitude': }
 package{ 'python-pip': }
 package{ 'sublime-text-installer':
     require => Apt::Ppa['ppa:webupd8team/sublime-text-3']
-}
-package{ 'docker-engine':
-    require => Apt::Source['docker']
 }
 
 # archive { 'ideaIU-15-preview':
@@ -78,11 +65,9 @@ git::config { 'push.default':
     user => $user,
 }
 
-# class { 'docker':
-#     # Setup docker containers to have chaing of DNS
-#     dns => ["<%= scope.lookupvar('::ipaddress_docker_0') -%>", '8.8.8.8'],
-#     dns_search => 'docker',
-#     docker_users => [ $user ],
-#     require => Package['docker-engine'],
-
-# }
+class { 'docker':
+    # Setup docker containers to have chaing of DNS
+    dns => [ '172.17.42.1', '8.8.8.8' ],
+    dns_search => 'docker',
+    docker_users => [ $user ],
+}
