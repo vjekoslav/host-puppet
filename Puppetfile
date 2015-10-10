@@ -12,6 +12,8 @@ mod 'puppetlabs-stdlib'
 mod 'zanloy/ohmyzsh', '1.0.3'
 mod 'puppetlabs/git', '0.4.0'
 mod 'puppetlabs/apt', '2.2.0'
-mod 'garethr/docker', '4.1.1'
 mod 'stankevich/python', '1.9.8'
 mod 'camptocamp/archive', '0.8.1'
+
+mod 'garethr-docker',
+  :git => "git://github.com/garethr/garethr-docker.git"
